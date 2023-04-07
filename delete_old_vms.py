@@ -20,7 +20,7 @@ for vm in cmclient.virtual_machines.list(resource_group_name):
     try:
         now = datetime.datetime.now(tz=datetime.timezone.utc)
         delta = now - vm.time_created
-        if delta < datetime.timedelta(hours=1):
+        if delta < datetime.timedelta(hours=2):
             print("{} is less than 2 hours old. Age is: {} ... skipping".format(
                 vm.name, delta))
             continue
