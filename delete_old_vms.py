@@ -76,8 +76,17 @@ for ip_name in ip_names:
 
 # Also delete old NSGs.
 for vm_name in vm_names:
-    # NSG name is determined by create-vm.sh script in drivers-evergreen-tools
+    # The suffix with "-NSG" is added by create-vm.sh script in drivers-evergreen-tools
     nsg_name = vm_name + "-NSG"
+    try:
+        print("delete nsg {} ... begin".format(nsg_name))
+        nmclient.network_security_groups.begin_delete(
+            resource_group_name, nsg_name).result()
+        print("delete nsg {} ... end".format(nsg_name))
+    except Exception as e:
+        print("Exception occurred: {}".format(e))
+    # The suffix with "NSG" appears to be the default added by `azure vm create`.
+    nsg_name = vm_name + "NSG"
     try:
         print("delete nsg {} ... begin".format(nsg_name))
         nmclient.network_security_groups.begin_delete(
