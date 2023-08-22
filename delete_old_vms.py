@@ -4,6 +4,12 @@ from azure.mgmt.compute import ComputeManagementClient
 from azure.mgmt.network import NetworkManagementClient
 import datetime
 import os
+import argparse
+import sys
+
+parser = argparse.ArgumentParser()
+parser.add_argument("--dry-run", action="store_true")
+args = parser.parse_args()
 
 sub_id = os.getenv("AZURE_SUBSCRIPTION_ID")
 resource_group_name = "DRIVERS-2411"
@@ -41,6 +47,9 @@ print("Going to delete the following resources:")
 print("Virtual Machines: {}".format(vm_names))
 print("Network Interfaces: {}".format(nic_names))
 print("IPs: {}".format(ip_names))
+if args.dry_run:
+    print("Dry run detected. Not deleting.")
+    sys.exit(1)
 
 # Delete Virtual Machine and Network Interface before IP to avoid the error " In order to delete the public IP, disassociate/detach the Public IP address from the resource"
 # print ("Press <enter> to proceed")

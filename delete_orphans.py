@@ -4,6 +4,12 @@ from azure.mgmt.compute import ComputeManagementClient
 from azure.mgmt.network import NetworkManagementClient
 import datetime
 import os
+import argparse
+import sys
+
+parser = argparse.ArgumentParser()
+parser.add_argument("--dry-run", action="store_true")
+args = parser.parse_args()
 
 sub_id = os.getenv("AZURE_SUBSCRIPTION_ID")
 resource_group_name = "DRIVERS-2411"
@@ -51,6 +57,15 @@ for nsg in nmclient.network_security_groups.list(resource_group_name):
             break
     if is_orphan:
         orphan_nsg_names.append(nsg.name)
+
+print("Going to delete the following resources:")
+print("Network Interfaces: {}".format(orphan_nic_names))
+print("IPs: {}".format(orphan_ip_names))
+print("NSGs: {}".format(orphan_nsg_names))
+if args.dry_run:
+    print("dry run detected. Not deleting")
+    sys.exit(1)
+
 
 for nic_name in orphan_nic_names:
     try:
