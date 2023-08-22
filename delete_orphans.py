@@ -2,7 +2,6 @@
 from azure.identity import DefaultAzureCredential
 from azure.mgmt.compute import ComputeManagementClient
 from azure.mgmt.network import NetworkManagementClient
-import datetime
 import os
 import argparse
 import sys
