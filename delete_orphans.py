@@ -11,7 +11,7 @@ parser.add_argument("--dry-run", action="store_true")
 args = parser.parse_args()
 
 sub_id = os.getenv("AZURE_SUBSCRIPTION_ID")
-resource_group_name = "DRIVERS-2411"
+resource_group_name = os.getenv("AZURE_RESOURCE_GROUP")
 client = ComputeManagementClient(
     credential=DefaultAzureCredential(), subscription_id=sub_id)
 cmclient = ComputeManagementClient(
