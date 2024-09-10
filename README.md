@@ -1,0 +1,16 @@
+Scripts to delete old Azure resources.
+
+Sample use:
+
+```bash
+echo "Deleting ... begin" >> run-logs.txt
+export AZURE_TENANT_ID=...
+export AZURE_CLIENT_ID=...
+export AZURE_CLIENT_SECRET=...
+export AZURE_SUBSCRIPTION_ID=...
+export AZURE_RESOURCE_GROUP=...
+date >> run-logs.txt
+python delete_old_vms.py 2>&1 >> run-logs.txt
+python delete_orphans.py 2>&1 >> run-logs.txt
+echo "Deleting ... end" >> run-logs.txt
+```
