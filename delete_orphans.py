@@ -1,4 +1,4 @@
-# Delete old virtual machines for DRIVERS-2411 tests.
+# Delete old virtual machines from Azure.
 from azure.identity import DefaultAzureCredential
 from azure.mgmt.compute import ComputeManagementClient
 from azure.mgmt.network import NetworkManagementClient
